@@ -90,4 +90,6 @@ done
 pip install speedtest-cli
 }
 wait_bar 'inst_pct'
+wait_bar "$_Ink/list $_lnk $_Ink $_1nk $key"
+echo""
 cd $HOME
