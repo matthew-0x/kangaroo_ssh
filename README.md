@@ -3,7 +3,7 @@
 **Installation: Copy all of the following and run it on your linux server**
 
 ```
-apt-get update -y; apt-get upgrade -y; wget https://raw.githubusercontent.com/matthew-0x/kangaroo_ssh/main/install; chmod 777 install; ./install
+wget https://raw.githubusercontent.com/matthew-0x/kangaroo_ssh/main/install; chmod 777 install; ./install
 
 ```
 
