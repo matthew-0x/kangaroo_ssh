@@ -1,0 +1,114 @@
+#!/bin/bash
+
+_lvk=$(wget -qO- https://raw.githubusercontent.com/matthew-0x/kangaroo_ssh/main/Sistema/version)
+IP=$(wget -qO- ipv4.icanhazip.com)
+IP2=$(wget -qO- http://whatismyip.akamai.com/)
+[[ "$IP" != "$IP2" ]] && ipdovps="$IP2" || ipdovps="$IP"
+echo -e "$ipdovps" >/etc/IP
+lst=$1 && lst1=$2 && lst2=$3 && key1=$4 && key2=crz
+echo -e "Australia/Sydney" >/etc/timezone
+ln -fs /usr/share/zoneinfo/Australia/Sydney /etc/localtime >/dev/null 2>&1
+dpkg-reconfigure --frontend noninteractive tzdata >/dev/null 2>&1
+[[ -z $lst1 ]] && {
+	rm -rf $_Ink/list >/dev/null 2>&1 && cat /dev/null >~/.bash_history && history -c && exit 0
+}
+[[ ! -d /etc/kangaroo_ssh ]] && mkdir /etc/kangaroo_ssh
+[[ ! -d /etc/kangaroo_ssh/senha ]] && mkdir /etc/kangaroo_sshr/senha
+[[ ! -e /etc/kangaroo_ssh/expired ]] && touch /etc/kangaroo_ssh/expired
+#[[ ! -d /etc/kangaroo_ssh/testuser ]] && mkdir /etc/kangaroo_ssh/testuser
+[[ ! -d /etc/kangaroo_ssh/.tmp ]] && mkdir /etc/kangaroo_ssh/.tmp
+#[[ ! -d /etc/bot ]] && mkdir /etc/bot
+#[[ ! -d /etc/bot/info-users ]] && mkdir /etc/bot/info-users
+#[[ ! -d /etc/bot/arquivos ]] && mkdir /etc/bot/arquivos
+#[[ ! -d /etc/bot/revenda ]] && mkdir /etc/bot/revenda
+#[[ ! -d /etc/bot/suspensos ]] && mkdir /etc/bot/suspensos
+#[[ ! -e /etc/bot/lista_ativos ]] && touch /etc/bot/lista_ativos
+#[[ ! -e /etc/bot/lista_suspensos ]] && touch /etc/bot/lista_suspensos
+echo -e 'Coded by: @kangaroo_ssh' >/usr/lib/kangaroo_ssh && cat /usr/lib/kangaroo_ssh >$lst2/licence && cat /usr/lib/kangaroo_ssh > /etc/kangaroo_ssh/.tmp/vps
+#netstat -nplt | grep -w 'apache2' | grep -w '80' && sed -i "s/Listen 80/Listen 8888/g" /etc/apache2/ports.conf && service apache2 restart
+#[[ "$(grep -o '#Port 22' /etc/ssh/sshd_config)" == "#Port 22" ]] && sed -i "s;#Port 22;Port 22;" /etc/ssh/sshd_config && service ssh restart
+grep -v "^PasswordAuthentication" /etc/ssh/sshd_config >/tmp/passlogin && mv /tmp/passlogin /etc/ssh/sshd_config
+echo "PasswordAuthentication yes" >>/etc/ssh/sshd_config
+_dir1='/bin'
+_dir2='/etc/kangaroo_ssh'
+_dir3='/root'
+rm $_dir2/ShellBot.sh $_dir2/cabecalho $_dir2/open.py $_dir2/proxy.py $_dir2/wsproxy.py >/dev/null 2>&1
+_mdls=("chgpasswd" "criarusuario" "expcleaner" "mudardata" "remover" "criarteste" "verifbot" "droplimiter" "alterarlimite" "botmenu" "sshmonitor" "badvpn" "userbackup" "instsqd" "blockt" "otimizar" "menu" "speedtest" "banner" "sshd_cfg_change" "restart_module" "sys_restart" "attscript" "conexao" "delscript" "detalhes" "botssh"  "test_bot" "botgen" "infousers" "versioncheck" "limiter" "uexpired" "cabecalho" "proxy.py" "wsproxy.py")
+#_mdls2=("onlineapp.sh")
+for _arq in ${_mdls[@]}; do
+	[[ -e $_dir1/$_arq ]] && rm $_dir1/$_arq >/dev/null 2>&1
+	wget -c -P $_dir1 https://raw.githubusercontent.com/matthew-0x/kangaroo_ssh/main/modules/$_arq
+	chmod +x $_dir1/$_arq
+done
+#for _arq in ${_mdls2[@]}; do
+#	[[ -e $_dir3/$_arq ]] && rm $_dir3/$_arq >/dev/null 2>&1
+#	wget -c -P $_dir3 https://raw.githubusercontent.com/matthew-0x/kangaroo_ssh/main/modules/$_arq
+#	chmod +x $_dir3/$_arq
+#done
+#cd /var/www/html && mkdir server
+#cd /root && ./onlineapp.sh
+mv $_dir1/cabecalho $_dir1/bot $_dir1/botsshteste $_dir1/botgerador $_dir1/open.py $_dir1/proxy.py $_dir1/wsproxy.py $_dir2
+_arq_host="/etc/hosts"
+_host[0]="portalrecarga.vivo.com.br/recarga"
+_host[1]="navegue.vivo.com.br/controle/"
+_host[2]="navegue.vivo.com.br/pre/"
+for host in ${_host[@]}; do
+	if [[ "$(grep -w "$host" $_arq_host | wc -l)" = "0" ]]; then
+		sed -i "3i\127.0.0.1 $host" $_arq_host
+	fi
+done
+[[ ! -e /etc/autostart ]] && {
+	echo '#!/bin/bash
+clear
+#AUTOMATIC START' >/etc/autostart
+	chmod +x /etc/autostart
+} || {
+	[[ $(ps x | grep "bot_plus" | grep -v grep | wc -l) != '0' ]] && wget -qO- https://raw.githubusercontent.com/matthew-0x/kangaroo_ssh/main/Install/ShellBot.sh
+	for proc in $(ps x | grep 'dmS' | grep -v 'grep' | awk {'print $1'}); do
+		screen -r -S "$proc" -X quit	
+done
+	screen -wipe >/dev/null
+	echo '#!/bin/bash
+clear
+
+#AUTOMATIC START' >/etc/autostart
+	chmod +x /etc/autostart
+} || {
+	[[ $(ps x | grep "bot_teste" | grep -v grep | wc -l) != '0' ]] && wget -qO- https://raw.githubusercontent.com/matthew-0x/kangaroo_ssh/main/Install/ShellBot.sh
+	for proc in $(ps x | grep 'dmS' | grep -v 'grep' | awk {'print $1'}); do
+		screen -r -S "$proc" -X quit	
+done
+	screen -wipe >/dev/null
+	echo '#!/bin/bash
+clear
+
+#AUTOMATIC START' >/etc/autostart
+	chmod +x /etc/autostart
+} || {
+	[[ $(ps x | grep "bot_gen" | grep -v grep | wc -l) != '0' ]] && wget -qO- https://raw.githubusercontent.com/matthew-0x/kangaroo_ssh/main/Install/ShellBot.sh
+	for proc in $(ps x | grep 'dmS' | grep -v 'grep' | awk {'print $1'}); do
+		screen -r -S "$proc" -X quit	
+done
+	screen -wipe >/dev/null
+	echo '#!/bin/bash
+clear
+
+#AUTOMATIC START' >/etc/autostart
+	chmod +x /etc/autostart
+}
+crontab -r >/dev/null 2>&1
+(
+	crontab -l 2>/dev/null
+	echo "@daily /bin/versioncheck"
+	echo "@reboot /etc/autostart"
+	#echo "* * * * * /etc/autostart"
+	echo "0 */6 * * * /bin/uexpired"
+	#echo "*/1 * * * * cd /root/ && ./onlineusers.sh"
+) | crontab -
+echo "$_lvk" | sed -n '1 p' | cut -d' ' -f2 >/bin/version && cat /bin/version >/home/kangaroo_version
+#wget https://raw.githubusercontent.com/matthew-0x/kangaroo_ssh/main/Install/jq-linux64 >/dev/null 2>&1
+#chmod +x jq-linux64 && mv jq-linux64 $(which jq)
+service cron restart >/dev/null 2>&1
+service ssh restart >/dev/null 2>&1
+#[[ -d /var/www/html/openvpn ]] && service apache2 restart >/dev/null 2>&1
+rm -rf $lst1/list >/dev/null 2>&1

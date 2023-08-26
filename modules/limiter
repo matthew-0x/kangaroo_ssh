@@ -1,0 +1,28 @@
+#!/bin/bash
+clear
+database="/root/kangaroo_users.db"
+fun_multilogin() {
+	(
+		while read user; do
+# Check if the user exists in the database and retrieve the associated limit
+limit=$(grep -w "$user" $database | cut -d' ' -f2)
+
+# If the limit not found, set it to 1
+if [ -z "$limit" ]; then
+    limit='1'
+fi
+
+# Count the number of sshd processes for the user
+conssh="$(ps -u $user | grep sshd | wc -l)"
+
+			[[ "$conssh" -gt "$limit" ]] && {
+				pkill -u $user
+			}
+		done <<<"$(awk -F: '$3 >= 1000 {print $1}' /etc/passwd)"
+	)
+}
+while true; do
+    echo 'Checking...'
+	fun_multilogin > /dev/null 2>&1
+	sleep 15s
+done
