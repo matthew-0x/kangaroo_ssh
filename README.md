@@ -1,8 +1,6 @@
 ## ◇────── KANGAROO SSH MANAGER ───────◇
 
-## ㅤ
-
-**Installation**
+**Installation: Copy all of the following and run it on your linux server**
 
 ```
 apt-get update -y; apt-get upgrade -y; wget https://raw.githubusercontent.com/matthew-0x/kangaroo_ssh/main/install; chmod 777 install; ./install
@@ -11,7 +9,7 @@ apt-get update -y; apt-get upgrade -y; wget https://raw.githubusercontent.com/ma
 
 ## ㅤ
 
-**Please donate Crypto currency if you enjoyed tihs progra**
+**Please donate Crypto currency if you enjoyed this program**
 
 ```
 USDT address (trc20):
