@@ -58,23 +58,22 @@ rm version* > /dev/null 2>&1
 wget https://raw.githubusercontent.com/matthew-0x/kangaroo_ssh/main/dependencies/version > /dev/null 2>&1
 
 #-----------------------------------------------------------------------------------------------------------------
-optiondb=1
+optiondb=2
 [[ -f "$HOME/kangaroo_users.db" ]] && {
 clear
 echo -e "\n\033[0;34m◇───────────────────────────────────────────────────◇\033[0m"
 echo ""
 echo -e "\033[1;33mA User Database For This Program Already Exist "
 echo -e "\n\033[1;37m[\033[1;31m1\033[1;37m] \033[1;33mUse Existing Database\033[0m"
-echo -e "\033[1;37m[\033[1;31m2\033[1;37m] \033[1;33mRemove Database\033[0m"
+echo -e "\033[1;37m[\033[1;31m2\033[1;37m] \033[1;33mCreate a New Database\033[0m"
 echo -e "\n\033[0;34m◇───────────────────────────────────────────────────◇\033[0m"
 echo ""
 tput setaf 2  
 tput bold 
-read -p "Choose a number from above (default value 2): " -e -i 1 optiondb  
+read -p "Choose a number from above (default value 1): " -e -i 1 optiondb  
 tput sgr0
 }
 if [[ "$optiondb" = '2' ]]; then
-    rm -f "$HOME/kangaroo_users.db"
     awk -F : '$3 >= 500 { print $1 " 1" }' /etc/passwd | grep -v '^nobody' > "$HOME/kangaroo_users.db"
 fi
 add_date () {
@@ -82,14 +81,14 @@ add_date () {
 echo "crz: $(date)" > /usr/share/.date/.install_time
 }
 add_date
-inst_pct () {
-_pacotes=("bc" "cron" "screen" "nano" "unzip" "netstat" "net-tools" "dos2unix" "nload" "jq" "curl" "python3" "python-pip")
-for _prog in ${_pacotes[@]}; do
+install_pkg () {
+_packages=("bc" "cron" "screen" "nano" "unzip" "netstat" "net-tools" "dos2unix" "nload" "jq" "curl" "python3" "python-pip")
+for _prog in ${_packages[@]}; do
 apt install $_prog -y
 done
 pip install speedtest-cli
 }
-wait_bar 'inst_pct'
+wait_bar 'install_pkg'
 wait_bar "$_Ink/list $_lnk $_Ink $_1nk $key"
-echo""
+echo ""
 cd $HOME
