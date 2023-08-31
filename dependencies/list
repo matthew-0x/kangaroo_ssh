@@ -30,7 +30,7 @@ echo "PasswordAuthentication yes" >>/etc/ssh/sshd_config
 _bin='/bin'
 _etc='/etc/kangaroo_ssh'
 _root='/root'
-rm $_etc/ShellBot.sh $_etc/cabecalho >/dev/null 2>&1
+#rm $_etc/ShellBot.sh $_etc/cabecalho >/dev/null 2>&1
 _mdls=("menu" "bot" "test_bot_ssh" "chgpasswd" "criarusuario" "expcleaner" "mudardata" "remover" "criarteste" "verifbot" "droplimiter" "userlimits" "botmenu" "sshmonitor" "badvpn" "userbackup" "instsqd" "blockt" "optimiser" "speedtest" "banner" "restart_module" "sys_restart" "updatescript" "conexao" "delscript" "detalhes" "botssh"  "test_bot" "botgen" "infousers" "versioncheck" "limiter" "uexpired" "cabecalho")
 #_mdls2=("onlineapp.sh")
 for _arg in ${_mdls[@]}; do
