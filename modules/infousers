@@ -1,6 +1,6 @@
 #!/bin/bash
 clear
-echo -e "\E[44;1;37m◇User        ◇Password      ◇limit     ◇validity \E[0m"
+echo -e "\E[44;1;37m◇User        ◇Password      ◇Limit     ◇Validity \E[0m"
 echo ""
 [[ ! -e /bin/versao ]] && rm -rf /bin/menu
 for users in `awk -F : '$3 > 900 { print $1 }' /etc/passwd |sort |grep -v "nobody" |grep -vi polkitd |grep -vi system-`
