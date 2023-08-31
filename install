@@ -58,7 +58,7 @@ rm version* > /dev/null 2>&1
 wget https://raw.githubusercontent.com/matthew-0x/kangaroo_ssh/main/dependencies/version > /dev/null 2>&1
 
 #-----------------------------------------------------------------------------------------------------------------
-optiondb=2
+optiondb="2"
 [[ -f "$HOME/kangaroo_users.db" ]] && {
 clear
 echo -e "\n\033[0;34m◇───────────────────────────────────────────────────◇\033[0m"
@@ -73,7 +73,7 @@ tput bold
 read -p "Choose a number from above (default value 1): " -e -i 1 optiondb  
 tput sgr0
 }
-if [[ "$optiondb" = '2' ]]; then
+if [[ "$optiondb" == '2' ]]; then
     awk -F : '$3 >= 500 { print $1 " 1" }' /etc/passwd | grep -v '^nobody' > "$HOME/kangaroo_users.db"
 fi
 add_date () {
