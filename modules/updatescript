@@ -59,9 +59,9 @@ vrs2=$(sed -n '1 p' /tmp/att | sed -e 's/[^0-9]//ig')
     echo -e "  \033[1;37m- \033[1;33m$verInfo"
   done < "/tmp/att"
   echo " "
-  echo -ne "  \033[1;32m◇ Do you wish to UPDATE? \033[1;33m[y/n]:\033[1;37m "; read res
+  echo -ne "  \033[1;32m- Do you wish to UPDATE? \033[1;33m[y/n]:\033[1;37m "; read res
   if [[ "$res" = y || "$res" = Y ]];then
-    echo -e "\n\033[1;32m◇ STARTING THE UPDATE..."
+    echo -e "\n\033[1;32m- UPDATE In Progress..."
     sleep 2
     wget https://raw.githubusercontent.com/matthew-0x/kangaroo_ssh/main/installation_script > /dev/null 2>&1
     chmod +x installation_script
