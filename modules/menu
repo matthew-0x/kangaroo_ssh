@@ -79,22 +79,22 @@ echo -e "\033[0;34m────────────────────�
 rm -rf $HOME/speed
 }
 #limiter
-function limit1 () {
+function startLimit () {
    clear
    echo -e "\n\033[1;32mSTARTING USER SESSION LIMITER... \033[0m"
    echo ""
    fun_bar 'screen -dmS limiter limiter' 'sleep 3'
-   [[ $(grep -wc "limiter" /etc/autostart) = '0' ]] && {
+   [[ $(grep -wc "limiter" /etc/autostart) == '0' ]] && {
        echo -e "ps x | grep 'limiter' | grep -v 'grep' && echo 'ON' || screen -dmS limiter limiter" >> /etc/autostart
    } || {
        sed -i '/limiter/d' /etc/autostart
 	   echo -e "ps x | grep 'limiter' | grep -v 'grep' && echo 'ON' || screen -dmS limiter limiter" >> /etc/autostart
    }
-   echo -e "\n\033[1;32mUSER SESSION LIMITER ACTIVATED !\033[0m"
-   sleep 3
+   echo -e "\n\033[1;32mLIMITER ACTIVATED!\033[0m"
+   sleep 2
    menu
 }
-function limit2 () {
+function stopLimit () {
    clear
    echo -e "\033[1;32mSTOPPING SESSION LIMITER... \033[0m"
    echo ""
@@ -107,13 +107,13 @@ function limit2 () {
       }
       sleep 1
    }
-   fun_bar 'fun_stplimiter' 'sleep 3'
-   echo -e "\n\033[1;31mUSER Session LIMITER STOPPED!\033[0m"
-   sleep 3
+   fun_bar 'fun_stplimiter' 'sleep 2'
+   echo -e "\n\033[1;31mLIMITER STOPPED!\033[0m"
+   sleep 2
    menu
 }
 function limit_ssh () {
-[[ $(ps x | grep "limiter"|grep -v grep |wc -l) = '0' ]] && limit1 || limit2
+[[ $(ps x | grep "limiter"|grep -v grep |wc -l) == '0' ]] && startLimit || stopLimit
 }
 
 function autoexec () {
@@ -147,22 +147,21 @@ function autoexec () {
 }
 #menu2
 menu2 (){
-[[ -e /etc/Plus-torrent ]] && stsf=$(echo -e "\033[1;32m♦ ") || stsf=$(echo -e "\033[1;31m○ ")
-stsbot=$(ps x | grep "bot_plus"|grep -v grep > /dev/null && echo -e "\033[1;32m♦ " || echo -e "\033[1;31m○ ")
-autm=$(grep "menu;" /etc/profile > /dev/null && echo -e "\033[1;32m♦ " || echo -e "\033[1;31m○ ")
-[[ ! -e /usr/lib/licence ]] && rm -rf /bin > /dev/null 2>&1
-if [[ "$(grep -c "Ubuntu" /etc/issue.net)" = "1" ]]; then
+[[ -e /etc/Plus-torrent ]] && storrent=$(echo -e "\033[1;32m♦ ")
+sbot=$(ps x | grep "bot_plus"|grep -v grep > /dev/null && echo -e "\033[1;32m♦ ")
+autoLight=$(grep "menu;" /etc/profile > /dev/null && echo -e "\033[1;32m♦ ")
+if [[ "$(grep -c "Ubuntu" /etc/issue.net)" == "1" ]]; then
 system=$(cut -d' ' -f1 /etc/issue.net)
 system+=$(echo ' ')
 system+=$(cut -d' ' -f2 /etc/issue.net |awk -F "." '{print $1}')
-elif [[ "$(grep -c "Debian" /etc/issue.net)" = "1" ]]; then
+elif [[ "$(grep -c "Debian" /etc/issue.net)" == "1" ]]; then
 system=$(cut -d' ' -f1 /etc/issue.net)
 system+=$(echo ' ')
 system+=$(cut -d' ' -f3 /etc/issue.net)
 else
 system=$(cut -d' ' -f1 /etc/issue.net)
 fi
-_ons=$(ps -x | grep sshd | grep -v root | grep priv | wc -l)
+_ons=$(ps -x | grep sshd | grep -v root | grep -v ubuntu | grep -v ec2-user | grep priv | wc -l)
 [[ "$(cat /etc/kangaroo_ssh/Exp)" != "" ]] && _expuser=$(cat /etc/kangaroo_ssh/Exp) || _expuser="0"
 #[[ -e /etc/openvpn/openvpn-status.log ]] && _onop=$(grep -c "10.8.0" /etc/openvpn/openvpn-status.log) || _onop="0"
 [[ -e /etc/default/dropbear ]] && _drp=$(ps aux | grep dropbear | grep -v grep | wc -l) _ondrp=$(($_drp - 1)) || _ondrp="0"
@@ -173,34 +172,34 @@ _usop=$(printf '%-1s' "$(top -bn1 | awk '/Cpu/ { cpu = "" 100 - $8 "%" }; END { 
 _core=$(printf '%-1s' "$(grep -c cpu[0-9] /proc/stat)")
 _system=$(printf '%-14s' "$system")
 _hora=$(printf '%(%H:%M:%S)T')
-_onlin=$(printf '%-5s' "$_onli")
+_online=$(printf '%-5s' "$_onli")
 _userexp=$(printf '%-5s' "$_expuser")
-_tuser=$(awk -F: '$3>=1000 {print $1}' /etc/passwd | grep -v nobody | wc -l)
+_tuser=$(awk -F: '$3>=1000 {print $1}' /etc/passwd | grep -v nobody | grep -v ubuntu | wc -l)
 clear
-echo -e "\033[0;34m◇───────────────────────────────────────────────◇\033[0m"
-echo -e "           •Kangaroo VPS MANAGER•        "
-echo -e "\033[0;34m◇───────────────────────────────────────────────◇\033[0m"
+echo -e "\033[0;34m◇──────────────────────────────────────────────────────────────◇\033[0m"
+echo -e "                    •Kangaroo VPS MANAGER•        "
+echo -e "\033[0;34m◇──────────────────────────────────────────────────────────────◇\033[0m"
 echo -e "\033[1;32mSYSTEM INFO          ◇RAM INFO    ◇CPU INFO"
-echo -e "\033[1;31mOS: \033[1;37m$_system \033[1;31mTotal:\033[1;37m$_ram \033[1;31mCPU cores: \033[1;37m$_core\033[0m"
+echo -e "\033[1;31mOS: \033[1;37m$_system \033[1;31mTotal: \033[1;37m$_ram \033[1;31mCPU cores: \033[1;37m$_core\033[0m"
 echo -e "\033[1;31mUp Time: \033[1;37m$_hora  \033[1;31mIn use: \033[1;37m$_usor \033[1;31mIn use: \033[1;37m$_usop\033[0m"
-echo -e "\033[0;34m◇───────────────────────────────────────────────◇\033[0m"
+echo -e "\033[0;34m◇──────────────────────────────────────────────────────────────◇\033[0m"
 [[ ! -e /tmp/att ]]  && {
-    echo -e "\033[1;32m◇Online:\033[1;37m $_onlin   \033[1;32m◇expired: \033[1;37m$_userexp \033[1;32m◇Total: \033[1;37m$_tuser\033[0m"
+    echo -e "\033[1;32mOnline:  \033[1;37m $_online    \033[1;32mTotal Users: \033[1;37m$_tuser\033[0m    \033[1;32mExpired: \033[1;37m$_userexp"
     var01='\033[1;37m•'
 } || {
-    echo -e "  \033[1;33m[\033[1;31m!\033[1;33m]  \033[1;32m◇ THERE IS AN UPDATE AVAILABLE!  \033[1;33m[\033[1;31m!\033[1;33m]\033[0m"
+    echo -e "  \033[1;33m[\033[1;31m*\033[1;33m]  \033[1;32m New version of this script is available!  \033[1;33m[\033[1;31m*\033[1;33m]\033[0m"
     var01="\033[1;32m!"
 }
-echo -e "\033[0;34m◇───────────────────────────────────────────────◇\033[0m"
+echo -e "\033[0;34m◇──────────────────────────────────────────────────────────────◇\033[0m"
 echo ""
 echo -e "[\033[1;36m26\033[1;31m] \033[1;37m◇ \033[1;33mCHANGE ROOT PASSWORD \033[1;31m
-[\033[1;36m27\033[1;31m] \033[1;37m◇ \033[1;33mSELF EXECUTION $autm \033[1;31m
-[\033[1;36m22\033[1;31m] \033[1;37m◇ \033[1;33mRESTART SYSTEM \033[1;31m     [\033[1;36m28\033[1;31m] $var01 \033[1;33mUPDATE SCRIPT \033[1;31m
-[\033[1;36m23\033[1;31m] \033[1;37m◇ \033[1;33mRESTART SERVICES \033[1;31m   [\033[1;36m29\033[1;31m] \033[1;37m◇ \033[1;33mREMOVE SCRIPT \033[1;31m
-[\033[1;36m24\033[1;31m] \033[1;37m◇ \033[1;33mBLOCK TORRENT $stsf\033[1;31m    [\033[1;36m30\033[1;31m] \033[1;37m◇ \033[1;33mCOME BACK \033[1;32m<\033[1;33m<\033[1;31m< \033[1;31m
-[\033[1;36m25\033[1;31m] \033[1;37m◇ \033[1;33mTELEGRAM BOT $stsbot\033[1;31m     [\033[1;36m00\033[1;31m] \033[1;37m◇ \033[1;33mGET OUT \033[1;32m<\033[1;33m<\033[1;31m<\033[1;31m"
+[\033[1;36m27\033[1;31m] \033[1;33mSELF EXECUTION $autoLight \033[1;31m
+[\033[1;36m22\033[1;31m] \033[1;33mRESTART SYSTEM \033[1;31m     [\033[1;36m28\033[1;31m]\033[1;33m Check for update \033[1;31m
+[\033[1;36m23\033[1;31m] \033[1;33mRESTART SERVICES \033[1;31m   [\033[1;36m29\033[1;31m]\033[1;33m REMOVE SCRIPT \033[1;31m
+[\033[1;36m24\033[1;31m] \033[1;33mBLOCK TORRENT $storrent\033[1;31m    [\033[1;36m30\033[1;31m]\033[1;33m Return \033[1;32m
+[\033[1;36m25\033[1;31m] \033[1;33mTELEGRAM BOT $sbot\033[1;31m     [\033[1;36m00\033[1;31m]\033[1;33m Exit \033[1;32m"
 echo ""
-echo -e "\033[0;34m◇───────────────────────────────────────────────◇\033[0m"
+echo -e "\033[0;34m◇──────────────────────────────────────────────────────────────◇\033[0m"
 echo ""
 echo -ne "\033[1;32m◇ WHAT DO YOU WANT TO DO \033[1;33m?\033[1;31m?\033[1;37m : "; read x
 case "$x" in
@@ -250,8 +249,8 @@ esac
 }
 while true $x != "ok"
 do
-stsl=$(ps x | grep "limiter"|grep -v grep > /dev/null && echo -e "\033[1;32m♦ " || echo -e "\033[1;31m○ ")
-stsu=$(ps x | grep "udpvpn"|grep -v grep > /dev/null && echo -e "\033[1;32m♦ " || echo -e "\033[1;31m○ ")
+stsl=$(ps x | grep "limiter"|grep -v grep > /dev/null && echo -e "\033[1;32m♦ ")
+stsu=$(ps x | grep "udpvpn"|grep -v grep > /dev/null && echo -e "\033[1;32m♦ ")
 if [[ "$(grep -c "Ubuntu" /etc/issue.net)" = "1" ]]; then
 system=$(cut -d' ' -f1 /etc/issue.net)
 system+=$(echo ' ')
@@ -265,18 +264,18 @@ system=$(cut -d' ' -f1 /etc/issue.net)
 fi
 _ons=$(ps -x | grep sshd | grep -v root | grep priv | wc -l)
 [[ "$(cat /etc/kangaroo_ssh/Exp)" != "" ]] && _expuser=$(cat /etc/kangaroo_ssh/Exp) || _expuser="0"
-[[ -e /etc/openvpn/openvpn-status.log ]] && _onop=$(grep -c "10.8.0" /etc/openvpn/openvpn-status.log) || _onop="0"
+#[[ -e /etc/openvpn/openvpn-status.log ]] && _onop=$(grep -c "10.8.0" /etc/openvpn/openvpn-status.log) || _onop="0"
 [[ -e /etc/default/dropbear ]] && _drp=$(ps aux | grep dropbear | grep -v grep | wc -l) _ondrp=$(($_drp - 1)) || _ondrp="0"
-_onli=$(($_ons + $_onop + $_ondrp))
+_onli=$(($_ons + $_ondrp))
 _ram=$(printf ' %-9s' "$(free -h | grep -i mem | awk {'print $2'})")
 _usor=$(printf '%-8s' "$(free -m | awk 'NR==2{printf "%.2f%%", $3*100/$2 }')")
 _usop=$(printf '%-1s' "$(top -bn1 | awk '/Cpu/ { cpu = "" 100 - $8 "%" }; END { print cpu }')")
 _core=$(printf '%-1s' "$(grep -c cpu[0-9] /proc/stat)")
-_system=$(printf '%-14s' "$_system")
+_system=$(printf '%-14s' "$system")
 _hora=$(printf '%(%H:%M:%S)T')
-_onlin=$(printf '%-5s' "$_onli")
+_online=$(printf '%-5s' "$_onli")
 _userexp=$(printf '%-5s' "$_expuser")
-_tuser=$(awk -F: '$3>=1000 {print $1}' /etc/passwd | grep -v nobody | wc -l)
+_tuser=$(awk -F: '$3>=1000 {print $1}' /etc/passwd | grep -v nobody | grep -v ubuntu | wc -l)
 clear
 echo -e "\033[0;34m─────────────────────────────────────────────────────────\033[0m"
 echo -e "           •Kangaroo SSH Manager•        "
@@ -285,14 +284,14 @@ echo -e "\033[1;32mServer DATA         RAM DATA          CPU DATA"
 echo -e "\033[1;31mOS:\033[1;37m$_system \033[1;31m Total:\033[1;37m$_ram \033[1;31mCPU cores: \033[1;37m$_core\033[0m"
 echo -e "\033[1;31mUp Time: \033[1;37m$_hora  \033[1;31m In use: \033[1;37m$_usor \033[1;31mIn use: \033[1;37m$_usop\033[0m"
 echo -e "\033[0;34m─────────────────────────────────────────────────────────\033[0m"
-echo -e "\033[1;32mOnline:\033[1;37m $_onlin   \033[1;32m    Expired: \033[1;37m$_userexp \033[1;32m    Total: \033[1;37m$_tuser\033[0m"
+echo -e "\033[1;32mOnline:\033[1;37m $_online   \033[1;32m    Expired: \033[1;37m$_userexp \033[1;32m    Total Users: \033[1;37m$_tuser\033[0m"
 echo -e "\033[0;34m─────────────────────────────────────────────────────────\033[0m"
 echo ""
 blue="\033[1;36m"
 yellow="\033[1;33m"
 echo -e "$blue 1$yellow CREATE USER 
-$blue 2$yellow ENABLE SESSION LIMITS $stsl\033[1;31m     $blue 10$yellow BACKUP USERS
-$blue 3$yellow ENABLE UDP $stsu\033[1;31m                $blue 11$yellow REMOVE EXPIRED USERS
+$blue 2$yellow On/Off SESSION LIMITS $stsl\033[1;31m     $blue 10$yellow BACKUP USERS
+$blue 3$yellow On/Off UDP $stsu\033[1;31m                $blue 11$yellow REMOVE EXPIRED USERS
 $blue 4$yellow REGISTERED USERS             $blue 12$yellow VPS INFO 
 $blue 5$yellow ONLINE USERS                 $blue 13$yellow MORE OPTIONS \033[1;31m>\033[1;33m>\033[1;32m>\033[0m\033[1;31m
 $blue 6$yellow CHANGE USER LIMIT            $blue 14$yellow CONNECTION MODE 
@@ -301,13 +300,13 @@ $blue 8$yellow CHANGE EXPIRATION DATE
 $blue 9$yellow REMOVE USER "                 
 echo ""
 echo -e "\033[0;34m◇────────────────────────────────────────────────────────◇\033[0m"
-echo -ne "\033[1;32m choose a number from above menu:  "; read x
+echo -ne "\033[1;32m Choose a number from above menu:  "; read x
 
 case "$x" in 
    1) 
    clear 
    criarusuario
-   echo -ne "\n\033[1;31m◇ Return to \033[1;32mMENU(Press Enter)!\033[0m"; read
+   echo -ne "\n\033[1;31mReturn to previous menu (Press Enter)! \033[0m"; read
    ;;
    2) 
    clear
@@ -322,12 +321,12 @@ case "$x" in
    4) 
    clear 
    infousers
-   echo -ne "\n\033[1;31m◇ Return to \033[1;32mMENU(Press Enter)!\033[0m"; read
+   echo -ne "\n\033[1;31mReturn to previous menu (Press Enter)! \033[0m"; read
    ;;
    5) 
    clear 
    sshmonitor
-   echo -ne "\n\033[1;31m◇ Return to \033[1;32mMENU(Press Enter)!\033[0m"; read
+   echo -ne "\n\033[1;31mReturn to previous menu (Press Enter)! \033[0m"; read
    ;;
    6) 
    clear 
@@ -347,7 +346,7 @@ case "$x" in
    ;; 
    10) 
    userbackup
-   echo -ne "\n\033[1;31m◇ Return to \033[1;32mMENU(Press Enter)!\033[0m"; read
+   echo -ne "\n\033[1;31mReturn to previous menu (Press Enter)! \033[0m"; read
    ;;  
    11) 
    clear
@@ -358,7 +357,7 @@ case "$x" in
    12) 
    clear 
    detalhes
-   echo -ne "\n\033[1;31m◇ Return to \033[1;32mMENU(Press Enter)!\033[0m"; read
+   echo -ne "\n\033[1;31mReturn to previous menu (Press Enter)! \033[0m"; read
    ;;
    13) 
    menu2
@@ -367,10 +366,10 @@ case "$x" in
    conexao
    ;;
    15) 
-   echo -e "\033[1;31mclosing the application...\033[0m" 
+   echo -e "\033[1;31mClosing the application...\033[0m" 
    sleep 1 
    clear 
-   exit
+   exit;
    ;;
    *) 
    echo -e "\n\033[1;31m Invalid option, try again!\033[0m" 
@@ -379,3 +378,4 @@ esac
 done
 }
 menu
+#fim

@@ -3,7 +3,7 @@ clear
 echo -e "\E[44;1;37m User         Password       Limit      Validity \E[0m"
 echo ""
 [[ ! -e /bin/version ]] && rm -rf /bin/menu
-for users in `awk -F : '$3 > 999 { print $1 }' /etc/passwd |sort |grep -v "nobody" |grep -vi "ubuntu" | grep -vi "ec2" |grep -vi systemd-`
+for users in `awk -F : '$3 > 999 { print $1 }' /etc/passwd |sort |grep -v "nobody" | grep -vi "ubuntu" | grep -vi "ec2" |grep -vi "systemd-"`
 do
 if [[ $(grep -cw $users $HOME/kangaroo_users.db) == "1" ]]; then
     limit=$(grep -w $users $HOME/kangaroo_users.db | cut -d' ' -f2)
@@ -34,7 +34,7 @@ Users=$(printf ' %-15s' "$users")
 Password=$(printf '%-13s' "$pass")
 Limit=$(printf '%-10s' "$limit")
 expTxt=$(printf '%-1s' "$expText")
-echo -e "\033[1;33m$Users \033[1;37m$Password \033[1;37m$Limit \033[1;32m$expTxt\033[0m"
+echo -e "\033[1;33m$Users \033[1;37m $Password \033[1;37m $Limit \033[1;32m $expTxt \033[0m"
 echo -e "\033[0;34m◇────────────────────────────────────────────────◇\033[0m"
 done
 echo ""
