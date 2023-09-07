@@ -72,7 +72,7 @@ gui=$(date "+%d/%m/%Y" -d "+$dias days")
 pass=$(perl -e 'print crypt($ARGV[0], "password")' $password)
 useradd -e $final -M -s /bin/false -p $pass $username >/dev/null 2>&1 &
 echo "$password" >/etc/kangaroo_ssh/pass/$username
-echo "$username $sshlimiter" >>/root/kangaroo_users.db
+echo "$username $sshlimiter" >> /root/kangaroo_users.db
 		
 	clear
     echo -e "\033[1;32m===================================="

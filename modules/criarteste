@@ -49,7 +49,7 @@ tput setaf 7 ; tput setab 1 ; tput bold ; echo "" ; echo "invalid limit." ; echo
 fi
 useradd -M -s /bin/false $nome
 (echo $pass;echo $pass) |passwd $nome > /dev/null 2>&1
-echo "$pass" > /etc/VPSManager/senha/$nome
+echo "$pass" > /etc/kangaroo_ssh/pass/$nome
 echo "$nome $limit" >> /root/kangaroo_users.db
 echo "#!/bin/bash
 pkill -f "$nome"
