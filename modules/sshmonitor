@@ -8,8 +8,8 @@ echo ""
  while read usline
     do  
         #user="$(echo $usline | cut -d' ' -f1)"
-        user=$(echo $usline | grep -v -E "systemd-coredump|lxd|ubuntu" kangaroo_users.db | cut -d' ' -f1)
-        s2ssh="$(echo $usline | grep -v -E "systemd-coredump|lxd|ubuntu" kangaroo_users.db |cut -d' ' -f2)"
+        user=$(echo $usline | grep -v -E "systemd-coredump|lxd|ubuntu" | cut -d' ' -f1)
+        s2ssh="$(echo $usline | cut -d' ' -f2)"
         if [ "$(cat /etc/passwd| grep -w $user| wc -l)" = "1" ]; then
           sqd="$(ps -u $user | grep sshd | wc -l)"
         else
