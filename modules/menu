@@ -336,6 +336,7 @@ case "$x" in
    menu2
    ;;   
    14) 
+   clear
    conexao
    ;;
    15) 
