@@ -200,7 +200,7 @@ case "$x" in
    autoexec
    ;;
    28)
-   attscript
+   updatescript
    ;;
    29)
    clear

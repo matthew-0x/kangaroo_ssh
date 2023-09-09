@@ -6,7 +6,6 @@ scor='\033[0m'
 GREEN='\033[1;32m'
 YELLOW='\033[1;33m'
 SCOLOR='\033[0m'
-[[ $(awk -F" " '{print $2}' /usr/lib/licence) == "@kangaroo_ssh" ]] && {
 	ram1=$(free -h | grep -i mem | awk {'print $2'})
 	ram2=$(free -h | grep -i mem | awk {'print $4'})
 	ram3=$(free -h | grep -i mem | awk {'print $3'})
@@ -324,7 +323,7 @@ SCOLOR='\033[0m'
 	x="ok"
 	fun_conexao() {
 		while true $x != "ok"; do
-			[[ ! -e '/home/kangaroo_ssh' ]] && exit 0
+			[[ ! -e '/etc/kangaroo_ssh' ]] && exit 0
 			clear
 			echo -e "\E[44;1;37m                Configured Services Information                 \E[0m\n"
 			echo -e "\033[1;32mSERVICE: \033[1;33mOPENSSH \033[1;32mPORT: \033[1;37m$(grep 'Port' /etc/ssh/sshd_config | cut -d' ' -f2 | grep -v 'no' | xargs)" && sts6="\033[1;32m♦ "
@@ -381,4 +380,3 @@ SCOLOR='\033[0m'
 		done
 	}
 	fun_conexao
-}
