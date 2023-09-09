@@ -2,7 +2,7 @@
 clear
 database="/root/kangaroo_users.db"
 tmp_now=$(printf '%(%H%M%S)T\n')
-echo -e "\E[44;1;37m◇User       ◇Status     ◇Connection   ◇Time \E[0m"
+echo -e "\E[44;1;37m User          Status      Connection    Online Time \E[0m"
 echo ""
 echo ""
  while read usline
@@ -10,7 +10,7 @@ echo ""
         user="$(echo $usline | cut -d' ' -f1)"
         s2ssh="$(echo $usline | cut -d' ' -f2)"
         if [ "$(cat /etc/passwd| grep -w $user| wc -l)" = "1" ]; then
-          sqd="$(ps -u $user | grep sshd | wc -l)"
+          sqd="$(ps -u $user | grep sshd | grep -v ubuntu | grep -v lxd | grep -v systemd-coredump | wc -l)"
         else
           sqd=0
         fi
