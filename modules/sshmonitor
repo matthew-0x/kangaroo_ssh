@@ -14,7 +14,7 @@ echo ""
         else
           sqd=0
         fi
-        [[ "$sqd" = "" ]] && sqd=0 && ovp=0 && drop=0
+        [[ "$sqd" = "" ]] && sqd=0; ovp=0; drop=0;
         cnx=$(($sqd + $drop))
         conex=$(($cnx + $ovp))
         if [[ $cnx -gt 0 ]]; then
@@ -58,5 +58,4 @@ echo ""
         fi
         echo -e "\033[0;34m◇────────────────────────────────────────────────◇\033[0m"
     done < "$database"
-fi
 #exit
