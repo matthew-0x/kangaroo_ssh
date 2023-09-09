@@ -9,7 +9,7 @@ echo ""
     do  
         user="$(echo $usline | cut -d' ' -f1)"
         s2ssh="$(echo $usline | cut -d' ' -f2)"
-        if ["$user" != "ubuntu"] && ["$user" != "ldx"] && ["$user" != "systemd-coredump"] ; then
+        if [["$user" != "ubuntu" && "$user" != "ldx" && "$user" != "systemd-coredump"]]; then
         if [ "$(cat /etc/passwd| grep -w $user| wc -l)" = "1" ]; then
           sqd="$(ps -u $user | grep sshd | wc -l)"
         else
@@ -48,6 +48,7 @@ echo ""
         else
           timerr="00:00:00"
         fi
+        fi
         if [[ $conex -eq 0 ]]; then
            status=$(echo -e "\033[1;31mOffline \033[1;33m       ")
            echo -ne "\033[1;33m"
@@ -58,6 +59,5 @@ echo ""
            printf '%-17s%-14s%-10s%s\n' " $user"      "$status" "$conex/$s2ssh" "$timerr"
         fi
         echo -e "\033[0;34m◇────────────────────────────────────────────────◇\033[0m"
-      fi
     done < "$database"
 #exit
