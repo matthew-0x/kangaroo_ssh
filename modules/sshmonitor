@@ -9,7 +9,6 @@ echo ""
     do  
         user="$(echo $usline | cut -d' ' -f1)"
         s2ssh="$(echo $usline | cut -d' ' -f2)"
-        if [["$user" != "ubuntu" && "$user" != "ldx" && "$user" != "systemd-coredump"]]; then
         if [ "$(cat /etc/passwd| grep -w $user| wc -l)" = "1" ]; then
           sqd="$(ps -u $user | grep sshd | wc -l)"
         else
@@ -47,7 +46,6 @@ echo ""
           timerr=$(echo "$timerusr" | sed -e 's/[^0-9:]//ig' )
         else
           timerr="00:00:00"
-        fi
         fi
         if [[ $conex -eq 0 ]]; then
            status=$(echo -e "\033[1;31mOffline \033[1;33m       ")
