@@ -306,7 +306,6 @@ case "$x" in
    userlimits
    ;; 
    7) 
-   clear
    chgpasswd
    ;;
    8) 
