@@ -10,8 +10,8 @@ while read _user; do
 	i=$(expr $i + 1)
 	_oP=$i
 	[[ $i == [1-9] ]] && i=0$i && oP+=" 0$i"
-	if [[ -e "/etc/kangaroo_ssh/userinfo/$_user" ]]; then
-		_userinfo="$(cat /etc/kangaroo_ssh/userinfo/$_user)"
+	if [[ -e "/etc/kangaroo_ssh/pass/$_user" ]]; then
+		_userinfo="$(cat /etc/kangaroo_ssh/pass/$_user)"
 	else
 		_userinfo='Null'
 	fi
@@ -48,7 +48,7 @@ else
 			then
 				echo "$user:$password" | chpasswd
 				tput setaf 7 ; tput setab 1 ; tput bold ; echo "" ; echo "$user password changed to: $password" ; echo "" ; tput sgr0
-				echo "$password" > /etc/kangaroo_ssh/userinfo/$user
+				echo "$password" > /etc/kangaroo_ssh/pass/$user
 				exit 1
 			else
 				echo ""
@@ -56,7 +56,7 @@ else
 				pkill -f $user
 				echo "$user:$password" | chpasswd
 				tput setaf 7 ; tput setab 1 ; tput bold ; echo "" ; echo "$user password changed to: $password" ; echo "" ; tput sgr0
-				echo "$password" > /etc/kangaroo_ssh/userinfo/$user
+				echo "$password" > /etc/kangaroo_ssh/pass/$user
 				exit 1
 			fi
 		fi
