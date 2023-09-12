@@ -305,7 +305,7 @@ case "$x" in
    clear 
    userlimits
    ;;
-   70) 
+   7) 
    changepass
    ;;
    8) 
