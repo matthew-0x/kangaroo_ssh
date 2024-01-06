@@ -12,8 +12,6 @@ wget https://raw.githubusercontent.com/matthew-0x/kangaroo_ssh/main/install; chm
 **Please donate Crypto currency if you enjoyed this program**
 
 ```
-USDT address (trc20):
-ETH address:
-BTC address:
+LTC address: ltc1qagumrte9j7ew69pk7jnxk7dpjjr5c3u2daaln
 
 ```
