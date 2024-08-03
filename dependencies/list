@@ -89,7 +89,7 @@ clear
 #AUTOMATIC START' >/etc/autostart
 	chmod +x /etc/autostart
 } 
-comment 
+comment >>
 #crontab -r >/dev/null 2>&1
 (
 	#crontab -l 2>/dev/null

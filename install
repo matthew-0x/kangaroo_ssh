@@ -54,7 +54,7 @@ wget -P $_Ink https://raw.githubusercontent.com/matthew-0x/kangaroo_ssh/main/dep
 echo "/bin/menu" > /bin/h && chmod +x /bin/h > /dev/null 2>&1
 cd /bin
 #rm version* > /dev/null 2>&1
-#wget https://raw.githubusercontent.com/matthew-0x/kangaroo_ssh/main/dependencies/version > /dev/null 2>&1
+wget https://raw.githubusercontent.com/matthew-0x/kangaroo_ssh/main/dependencies/version > /dev/null 2>&1
 
 #-----------------------------------------------------------------------------------------------------------------
 #optiondb=2
@@ -81,7 +81,7 @@ echo "crz: $(date)" > /usr/share/.date/.install_time
 }
 add_date
 install_pkg () {
-_packages=("bc" "menu" "screen" "unzip" "netstat" "net-tools" "dos2unix" "nload" "jq" "curl" "python3" "python-pip")
+_packages=("bc" "screen" "unzip" "netstat" "net-tools" "dos2unix" "nload" "jq" "curl" "python3" "python-pip")
 for _prog in ${_packages[@]}; do
 apt install $_prog -y
 done
