@@ -20,7 +20,7 @@ touch $HOME/fim
 tput civis
 echo -ne "  \033[1;33m◇ PLEASE WAIT... \033[1;37m- \033[1;33m["
 while true; do
-for((i=0; i<18; i++)); do
+for((i=0; i<12; i++)); do
 echo -ne "\033[1;31m#"
 sleep 0.1s
 done
@@ -69,7 +69,7 @@ echo -e "\n\033[0;34m◇──────────────────�
 echo ""
 tput setaf 2  
 tput bold 
-read -p "Choose a number from above (default value 2): " optiondb 
+read -p "Choose a number from above: " optiondb 
 tput sgr0
 }
 if [[ "$optiondb" == "2" ]]; then
@@ -81,7 +81,7 @@ echo "crz: $(date)" > /usr/share/.date/.install_time
 }
 add_date
 install_pkg () {
-_packages=("bc" "screen" "unzip" "netstat" "net-tools" "dos2unix" "nload" "jq" "curl" "python3" "python-pip")
+_packages=("bc" "menu" "screen" "unzip" "netstat" "net-tools" "dos2unix" "nload" "jq" "curl" "python3" "python-pip")
 for _prog in ${_packages[@]}; do
 apt install $_prog -y
 done
