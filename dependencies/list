@@ -49,7 +49,8 @@ done
 #cd /var/www/html && mkdir server
 #cd /root && ./onlineapp.sh
 #mv $_bin/cabecalho $_bin/bot $_bin/test_bot_ssh $_bin/botgerador $_etc
-<< comment [[ ! -e /etc/autostart ]] && {
+<< comment 
+[[ ! -e /etc/autostart ]] && {
 	echo #!/bin/bash
 clear
 #AUTOMATIC START' >/etc/autostart
@@ -89,10 +90,10 @@ clear
 	chmod +x /etc/autostart
 } 
 comment 
-crontab -r >/dev/null 2>&1
+#crontab -r >/dev/null 2>&1
 (
-	crontab -l 2>/dev/null
-	echo "@daily /bin/versioncheck"
+	#crontab -l 2>/dev/null
+	#echo "@daily /bin/versioncheck"
 	#echo "@reboot /etc/autostart"
 	#echo "* * * * * /etc/autostart"
 	echo "0 */6 * * * /bin/uexpired"

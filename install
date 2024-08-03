@@ -39,7 +39,7 @@ krm=$(echo '5:q-3gs2.o7%8:1'|rev)
 chmod +x $_Ink/list > /dev/null 2>&1
 [[ ! -e "$_Ink/list" ]] && {
 echo -e "\n\033[1;31m◇ KEY INVALID!\033[0m"
-sleep 2
+sleep 1
 clear; exit 1
 }
 }
@@ -51,14 +51,13 @@ echo -ne "\033[1;36m◇ Proceed with installation? [Y/N]: \033[1;37m"; read x
 [[ $x = @(n|N) ]] && exit
 rm $_Ink/list > /dev/null 2>&1
 wget -P $_Ink https://raw.githubusercontent.com/matthew-0x/kangaroo_ssh/main/dependencies/list > /dev/null 2>&1
-verif_key
 echo "/bin/menu" > /bin/h && chmod +x /bin/h > /dev/null 2>&1
 cd /bin
-rm version* > /dev/null 2>&1
-wget https://raw.githubusercontent.com/matthew-0x/kangaroo_ssh/main/dependencies/version > /dev/null 2>&1
+#rm version* > /dev/null 2>&1
+#wget https://raw.githubusercontent.com/matthew-0x/kangaroo_ssh/main/dependencies/version > /dev/null 2>&1
 
 #-----------------------------------------------------------------------------------------------------------------
-optiondb=2
+#optiondb=2
 [[ -f "$HOME/kangaroo_users.db" ]] && {
 clear
 echo -e "\n\033[0;34m◇───────────────────────────────────────────────────◇\033[0m"
@@ -70,7 +69,7 @@ echo -e "\n\033[0;34m◇──────────────────�
 echo ""
 tput setaf 2  
 tput bold 
-read -p "Choose a number from above (default value 1): " -e optiondb  
+read -p "Choose a number from above (default value 2): " optiondb 
 tput sgr0
 }
 if [[ "$optiondb" == "2" ]]; then
@@ -82,13 +81,13 @@ echo "crz: $(date)" > /usr/share/.date/.install_time
 }
 add_date
 install_pkg () {
-_packages=("bc" "cron" "screen" "nano" "unzip" "netstat" "net-tools" "dos2unix" "nload" "jq" "curl" "python3" "python-pip")
+_packages=("bc" "screen" "unzip" "netstat" "net-tools" "dos2unix" "nload" "jq" "curl" "python3" "python-pip")
 for _prog in ${_packages[@]}; do
 apt install $_prog -y
 done
-pip install speedtest-cli
+#pip install speedtest-cli
 }
 wait_bar 'install_pkg'
-wait_bar "$_Ink/list $_lnk $_Ink $_1nk $key"
+#wait_bar "$_Ink/list $_lnk $_Ink $_1nk $key"
 echo ""
 cd $HOME
