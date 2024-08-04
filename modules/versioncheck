@@ -2,7 +2,7 @@
 clear
 [[ -e /root/uversion ]] && rm /root/uversion
 wget -P $HOME https://raw.githubusercontent.com/matthew-0x/kangaroo_ssh/main/dependencies/uversion > /dev/null 2>&1
-[[ -f "/root/version" ]] && {
+[[ -f "/root/uversion" ]] && {
 	vrs1=$(sed -n '1 p' /bin/version| sed -e 's/[^0-9]//ig')
     vrs2=$(sed -n '1 p' /root/uversion | sed -e 's/[^0-9]//ig')
 	[[ "$vrs1" != "$vrs2" ]] && mv /root/uversion /tmp/att
