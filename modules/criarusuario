@@ -4,7 +4,7 @@ IP=$(cat /etc/IP)
 cor1='\033[41;1;37m'
 cor2='\033[44;1;37m'
 scor='\033[0m'
-[[ ! -e /usr/lib/kangaroo_ssh ]] && exit 0
+#[[ ! -e /usr/lib/kangaroo_ssh ]] && exit 0
 tput setaf 7;tput setab 4;tput bold;printf '%30s%s%-15s\n' "Create SSH User";tput sgr0
 echo ""
 echo -ne "\033[1;32mUsername:\033[1;37m ";read username

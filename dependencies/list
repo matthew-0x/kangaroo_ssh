@@ -37,6 +37,7 @@ for _arg in ${_mdls[@]}; do
 	[[ -e $_bin/$_arg ]] && rm $_bin/$_arg >/dev/null 2>&1
 	if wget -c -P $_bin https://raw.githubusercontent.com/matthew-0x/kangaroo_ssh/main/modules/$_arg; then
       chmod +x $_bin/$_arg
+	  
   else
       echo "Error: $_arg does not exist online or could not be downloaded."
   fi
