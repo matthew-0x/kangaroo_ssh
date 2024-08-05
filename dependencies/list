@@ -3,7 +3,7 @@
 _version=$(wget -qO- https://raw.githubusercontent.com/matthew-0x/kangaroo_ssh/main/Sistema/version)
 ip=$(wget -qO- ipecho.net/plain)
 echo -e "$ip" >/etc/IP
-lst1=$1
+lst1="/root"
 echo -e "Australia/Sydney" >/etc/timezone
 ln -fs /usr/share/zoneinfo/Australia/Sydney /etc/localtime >/dev/null 2>&1
 dpkg-reconfigure --frontend noninteractive tzdata >/dev/null 2>&1
