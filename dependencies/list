@@ -7,9 +7,10 @@ lst1="/root"
 echo -e "Australia/Sydney" >/etc/timezone
 ln -fs /usr/share/zoneinfo/Australia/Sydney /etc/localtime >/dev/null 2>&1
 dpkg-reconfigure --frontend noninteractive tzdata >/dev/null 2>&1
-[[ -z $lst1 ]] && {
-	rm -rf $_Ink/list >/dev/null 2>&1 && exit 0
-}
+#[[ -z $lst1 ]] && {
+#	rm -rf $_Ink/list >/dev/null 2>&1 && exit 0
+#}
+touch $HOME/ok
 [[ ! -d /etc/kangaroo_ssh ]] && mkdir /etc/kangaroo_ssh
 [[ ! -d /etc/kangaroo_ssh/pass ]] && mkdir /etc/kangaroo_ssh/pass
 [[ ! -e /etc/kangaroo_ssh/Exp ]] && touch /etc/kangaroo_ssh/Exp

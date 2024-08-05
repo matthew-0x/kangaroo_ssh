@@ -13,8 +13,8 @@ comando[0]="$1"
 comando[1]="$2"
 (
 [[ -e $HOME/fim ]] && rm $HOME/fim
-${comando[0]} -y 
-${comando[1]} -y > /dev/null 2>&1
+${comando[0]} -y
+${comando[1]} -y
 touch $HOME/fim
 ) > /dev/null 2>&1 &
 tput civis
@@ -85,11 +85,11 @@ add_date
 install_pkg () {
 _packages=("bc" "screen" "unzip" "netstat" "net-tools" "dos2unix" "nload" "jq" "curl" "python3" "python-pip")
 for _prog in ${_packages[@]}; do
-apt install $_prog -y
+apt install $_prog
 done
 #pip install speedtest-cli
 }
-wait_bar 'install_pkg'
-wait_bar '$_Ink/list'
+wait_bar "install_pkg"
+wait_bar "$_Ink/list"
 echo ""
 cd $HOME
