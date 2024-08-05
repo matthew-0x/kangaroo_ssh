@@ -57,7 +57,7 @@ cd /bin
 wget https://raw.githubusercontent.com/matthew-0x/kangaroo_ssh/main/dependencies/uversion > /dev/null 2>&1
 
 #-----------------------------------------------------------------------------------------------------------------
-#optiondb=2
+optiondb="2"
 [[ -f "$HOME/kangaroo_users.db" ]] && {
 clear
 echo -e "\n\033[0;34m◇───────────────────────────────────────────────────◇\033[0m"
